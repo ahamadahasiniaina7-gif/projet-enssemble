@@ -1,2 +1,212 @@
 Bonjour tout le monde
 elabe le toste
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leçon complète : Git, GitHub &amp; Pull Requests</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f6f8fa;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      padding: 2rem 1rem;
+      color: #24292e;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      padding: 2.5rem 2.8rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      border-bottom: 3px solid #e1e4e8;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    h1 small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #586069;
+      margin-left: 8px;
+    }
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      border-left: 6px solid #2ea44f;
+      padding-left: 1rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.6rem 0 0.8rem 0;
+      color: #1f2937;
+    }
+    p, li {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #2c3e50;
+    }
+    .highlight-box {
+      background: #f0f6fc;
+      border-radius: 16px;
+      padding: 1.6rem 2rem;
+      margin: 1.8rem 0;
+      border-left: 6px solid #0969da;
+    }
+    .diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 1.8rem 0 2.5rem 0;
+    }
+    .diff-card {
+      background: #f9fafb;
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px solid #eaeef2;
+    }
+    .diff-card.git {
+      border-top: 6px solid #f66a0a;
+    }
+    .diff-card.github {
+      border-top: 6px solid #1b1f23;
+    }
+    .diff-card h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .diff-card ul {
+      padding-left: 1.4rem;
+      margin-top: 0.5rem;
+    }
+    .diff-card li {
+      margin-bottom: 0.5rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #d0d7de;
+      border-radius: 30px;
+      padding: 0.2rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-right: 6px;
+    }
+    .badge.git-badge { background: #f66a0a20; color: #b84a00; }
+    .badge.gh-badge { background: #1b1f2310; color: #1b1f23; }
+    .badge.rebase-badge { background: #6f42c120; color: #5a2d8a; }
+    .badge.pr-badge { background: #2ea44f30; color: #116329; }
+    code {
+      background: #eef2f6;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #1a1f2b;
+    }
+    pre {
+      background: #1f2429;
+      color: #e6edf3;
+      padding: 1.2rem 1.6rem;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 1.2rem 0;
+      font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    }
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: 0.95rem;
+    }
+    .cmd {
+      color: #f0c674;
+    }
+    .comment { color: #8b949e; }
+    .step-list {
+      list-style-type: decimal;
+      padding-left: 1.6rem;
+      margin: 1rem 0 1.4rem 0;
+    }
+    .step-list li {
+      margin-bottom: 0.6rem;
+    }
+    hr {
+      border: none;
+      border-top: 2px solid #e1e4e8;
+      margin: 2.5rem 0 1rem 0;
+    }
+    .emoji-big {
+      font-size: 1.4rem;
+      vertical-align: middle;
+    }
+    .footer-note {
+      margin-top: 2.8rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed #d0d7de;
+      font-style: italic;
+      color: #57606a;
+      text-align: center;
+    }
+    .rebase-section, .pr-section {
+      background: #f8f4ff;
+      border-radius: 18px;
+      padding: 1.6rem 2rem;
+      margin: 2rem 0;
+      border: 1px solid #d9c9f0;
+    }
+    .pr-section {
+      background: #f0faf4;
+      border-color: #a8d5ba;
+    }
+    .pr-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.2rem 0;
+    }
+    .pr-step {
+      flex: 1 1 200px;
+      background: white;
+      border-radius: 14px;
+      padding: 1rem 1.4rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+    }
+    .pr-step strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #116329;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 1.5rem; }
+      h1 { font-size: 2rem; }
+      .diff-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .pr-steps { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
