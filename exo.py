@@ -76,3 +76,33 @@ manager.find_employee("Alice")
 manager.remove_employee("Bob")
 
 manager.display_all()
+
+#exercice 3
+import json
+
+class EmployeeManager:
+    def __init__(self):
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def remove_employee(self, employee_id):
+        self.employees = [
+            emp for emp in self.employees
+            if emp["id"] != employee_id
+        ]
+
+    def find_employee(self, employee_id):
+        for emp in self.employees:
+            if emp["id"] == employee_id:
+                return emp
+        return None
+
+    def display_all(self):
+        for emp in self.employees:
+            print(emp)
+
+    def save_to_json(self):
+        with open("employees.json", "w", encoding="utf-8") as file:
+            json.dump(self.employees, file, ensure_ascii=False, indent=4)
