@@ -29,3 +29,50 @@ employe1.display_info()
 
 print("\nDictionnaire :")
 print(employe1.to_dict())
+
+#exercice 2
+class EmployeeManager:
+    def __init__(self):
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+        print(f"{employee} ajouté.")
+
+    def remove_employee(self, employee):
+        if employee in self.employees:
+            self.employees.remove(employee)
+            print(f"{employee} supprimé.")
+        else:
+            print("Employé non trouvé.")
+
+    def find_employee(self, employee):
+        if employee in self.employees:
+            print(f"{employee} trouvé.")
+            return True
+        else:
+            print(f"{employee} non trouvé.")
+            return False
+
+    def display_all(self):
+        if not self.employees:
+            print("Aucun employé.")
+        else:
+            print("Liste des employés :")
+            for employee in self.employees:
+                print(employee)
+
+
+
+manager = EmployeeManager()
+
+manager.add_employee("Alice")
+manager.add_employee("Bob")
+
+manager.display_all()
+
+manager.find_employee("Alice")
+
+manager.remove_employee("Bob")
+
+manager.display_all()
