@@ -3,6 +3,7 @@ import json
 from openpyxl import Workbook
 
 
+#atributs
 class Employee:
     def __init__(self,id,nom,poste,salaire):
         self.id = id
