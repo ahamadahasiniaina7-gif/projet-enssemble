@@ -2,6 +2,33 @@
 import json
 from openpyxl import Workbook
 
+
+#atributs
+class Employee:
+    def __init__(self,id,nom,poste,salaire):
+        self.id = id
+        self.nom = nom
+        self.poste = poste
+        self.salaire = salaire
+    
+    #methode display_info
+    def display_info(self):
+        print(f"ID: {self.id}")
+        print(f"NOM: {self.nom}")
+        print(f"POSTE: {self.poste}")
+        print(f"SALAIRE: {self.salaire}")
+
+    def to_dict(self):
+        return {
+            "id" : {self.id},
+            "nom" : {self.nom},
+            "poste" : {self.poste},
+            "salaire" : {self.salaire}
+        }
+        
+
+
+
 class EmployeeManager:
     def __init__(self):
         self.employees = [] #tableau
