@@ -1,79 +1,54 @@
 #ataovy ny devoir
+import json
+from openpyxl import Workbook
 
-
-"""#exercice 2
 class EmployeeManager:
     def __init__(self):
-        self.employees = []
+        self.employees = [] #tableau
 
-    def add_employee(self, employee):
-        self.employees.append(employee)
-        print(f"{employee} ajouté.")
+    #methode ajouter employer
+    def add_employee(self,employer):
+        self.employees.append (employer)
+        print("Employer ajouter avec succcess")
 
-    def remove_employee(self, employee):
-        if employee in self.employees:
-            self.employees.remove(employee)
-            print(f"{employee} supprimé.")
+    #méthode trouver employer
+    def find_employee(self,employer_id):
+        for employer in self.employees:
+            if employer.id == employer_id:
+                return employer #misy valeur
+        return None #vide
+        
+
+    #methode supprimer
+    def remove_employee(self,employer_id):
+        employer = self.find_employee(employer_id)
+        if employer:
+            self.employees.remove(employer) #.pop
+            print(f"Employer supprimmer ave succcess {employer}")
         else:
-            print("Employé non trouvé.")
-
-    def find_employee(self, employee):
-        if employee in self.employees:
-            print(f"{employee} trouvé.")
-            return True
-        else:
-            print(f"{employee} non trouvé.")
-            return False
-
+            print("employer introuvable")    
+            
+            
+        
+    #display_all(afficher tout)
     def display_all(self):
         if not self.employees:
-            print("Aucun employé.")
-        else:
-            print("Liste des employés :")
-            for employee in self.employees:
-                print(employee)
+            print("aucun employer")
+            return
+        for employer in self.employees:
+            employer.display_info()
+        
 
 
 
-manager = EmployeeManager()
 
-manager.add_employee("Alice")
-manager.add_employee("Bob")
+    
 
-manager.display_all()
 
-manager.find_employee("Alice")
 
-manager.remove_employee("Bob")
 
-manager.display_all()
 
-#exercice 3
-import json
 
-class EmployeeManager:
-    def __init__(self):
-        self.employees = []
 
-    def add_employee(self, employee):
-        self.employees.append(employee)
-
-    def remove_employee(self, employee_id):
-        self.employees = [
-            emp for emp in self.employees
-            if emp["id"] != employee_id
-        ]
-
-    def find_employee(self, employee_id):
-        for emp in self.employees:
-            if emp["id"] == employee_id:
-                return emp
-        return None
-
-    def display_all(self):
-        for emp in self.employees:
-            print(emp)
-
-    def save_to_json(self):
-        with open("employees.json", "w", encoding="utf-8") as file:
-            json.dump(self.employees, file, ensure_ascii=False, indent=4)"""
+        
+        
