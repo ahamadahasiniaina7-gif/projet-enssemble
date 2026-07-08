@@ -118,30 +118,47 @@ class Employee:
             data["salary"]
         )
 
-class EmployeeManager:
-    def __init__(self):
-        self.employees = []
 
-    def load_from_json(self):
+
+
+def menu ():
+    manager = EmployeeManager()
+    
+
+    while True:
+        print("""
+            1:ajouter un employee
+            2:afficher les employees
+            3:supprimer un employee
+            4:sauvegarder dans json
+            5:charger json
+            6:exporter vers exel
+            0:quitter
+              """)
+
         try:
-            with open("employees.json", "r", encoding="utf-8") as file:
-                data = json.load(file)
-
-            self.employees = [
-                Employee.from_dict(emp)
-                for emp in data
-            ]
-
-            print("Employés chargés avec succès.")
-
-        except FileNotFoundError:
-            self.employees = []
-            print("Le fichier employees.json n'existe pas.")
-
-        except json.JSONDecodeError:
-            self.employees = []
-            print("Erreur : le fichier JSON est invalide.")
-
+            choix = int(input("entrer votre choix"))
+            
+            if choix ==1:
+                #ajoiuter
+            elif choix ==2:
+                #afficher
+            elif choix ==3:
+                #supprimer
+            elif choix ==4:
+                #sauvegarde
+            elif choix ==5:
+                #charger
+            elif choix ==6:
+                #exporter
+            elif choix ==0:
+                #quitter
+                print("au revoir")
+            else:
+                print("choix invalide")
+        except ValueError:
+            print("enter nomber valide")
+            
 
 
         
