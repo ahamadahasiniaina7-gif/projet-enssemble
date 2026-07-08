@@ -64,16 +64,48 @@ class EmployeeManager:
             return
         for employer in self.employees:
             employer.display_info()
-        
+    #crée une méthode
+    import json
 
+class Employee:
+    def __init__(self, emp_id, name, age, salary):
+        self.emp_id = emp_id
+        self.name = name
+        self.age = age
+        self.salary = salary
 
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data["emp_id"],
+            data["name"],
+            data["age"],
+            data["salary"]
+        )
 
+class EmployeeManager:
+    def __init__(self):
+        self.employees = []
 
-    
+    def load_from_json(self):
+        try:
+            with open("employees.json", "r", encoding="utf-8") as file:
+                data = json.load(file)
 
+            self.employees = [
+                Employee.from_dict(emp)
+                for emp in data
+            ]
 
+            print("Employés chargés avec succès.")
 
+        except FileNotFoundError:
+            self.employees = []
+            print("Le fichier employees.json n'existe pas.")
 
+        except json.JSONDecodeError:
+            self.employees = []
+            print("Erreur : le fichier JSON est invalide.")
 
 
 
