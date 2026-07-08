@@ -64,10 +64,8 @@ class EmployeeManager:
             return
         for employer in self.employees:
             employer.display_info()
-<<<<<<< HEAD
     #crée une méthode
     import json
-=======
 
 
 
@@ -103,7 +101,6 @@ class EmployeeManager:
 
         print("Les employés ont été enregistrés dans employees.json.")
         
->>>>>>> 54cd320f58c55e41e7aa7ef0d0420dcda694233c
 
 class Employee:
     def __init__(self, emp_id, name, age, salary):
