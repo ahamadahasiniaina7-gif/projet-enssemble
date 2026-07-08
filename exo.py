@@ -64,85 +64,72 @@ class EmployeeManager:
             return
         for employer in self.employees:
             employer.display_info()
-    #crée une méthode
-    import json
-
-
-
-
-class Employee:
-    def __init__(self, id, nom, poste, salaire):
-        self.id = id
-        self.nom = nom
-        self.poste = poste
-        self.salaire = salaire
-
-
-class EmployeeManager:
-    def __init__(self):
-        self.employees = []
-
-    def add_employee(self, employee):
-        self.employees.append(employee)
-
+    #Enregistrer vers Json
     def save_to_json(self):
-        data = []
+        try:
+            data = []
 
-        for emp in self.employees:
-            data.append({
-                "id": emp.id,
-                "nom": emp.nom,
-                "poste": emp.poste,
-                "salaire": emp.salaire
+            for emp in self.employees:
+                data.append({
+                    "id": emp.id,
+                    "nom": emp.nom,
+                    "poste": emp.poste,
+                    "salaire": emp.salaire
             })
 
-        with open("employees.json", "w", encoding="utf-8") as fichier:
-            json.dump(data, fichier, indent=4, ensure_ascii=False)
+            with open("employees.json", "w" ) as fichier:
+                json.dump(data, fichier, indent=4, ensure_ascii=False)
 
-        print("Les employés ont été enregistrés dans employees.json.")
-        
+            print("Les employés ont été enregistrés dans employees.json.")
+        except Exception as e:
+            print("Error:", e)
 
-class Employee:
-    def __init__(self, emp_id, name, age, salary):
-        self.emp_id = emp_id
-        self.name = name
-        self.age = age
-        self.salary = salary
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(
-            data["emp_id"],
-            data["name"],
-            data["age"],
-            data["salary"]
-        )
-
-class EmployeeManager:
-    def __init__(self):
-        self.employees = []
-
+    #Load_json
     def load_from_json(self):
         try:
             with open("employees.json", "r", encoding="utf-8") as file:
-                data = json.load(file)
+                data = json.load(file) # stockena ao anaty data ilay zvt ao anatin'ilay fichier.Json
+                self.employees=[
 
-            self.employees = [
-                Employee.from_dict(emp)
-                for emp in data
-            ]
+                ]
+                for i in data:
+                    employee = Employee(
+                        i["id"],
+                        i["nom"],
+                        i["poste"],
+                        i["salaire"]
 
-            print("Employés chargés avec succès.")
-
+                    )
+                    self.employees.append(employee)
+                print("Employés chargés avec succès.")
         except FileNotFoundError:
-            self.employees = []
-            print("Le fichier employees.json n'existe pas.")
+            print("le fichier n'existe pas")
+        except Exception as e: 
+            print("Error:",e) 
+            
+            #EXport_excel 
+    def export_excel(self):
+        try:
+                
 
-        except json.JSONDecodeError:
-            self.employees = []
-            print("Erreur : le fichier JSON est invalide.")
+        # Créer un nouveau classeur Excel
+            workbook = Workbook()
+            sheet = workbook.active
+            sheet.title = "Employees"
 
+        # En-têtes des colonnes
+            sheet.append(["ID", "Nom", "Âge", "Salaire"])
 
+        # Ajouter les données des employés
+            for employee in self.employees:
+                sheet.append([
+                employee.emp_id,
+                employee.name,
+                employee.age,
+                employee.salary
+            ])
 
-        
-        
+        except Exception as e:
+            print("Error:",e)    
+
+       
