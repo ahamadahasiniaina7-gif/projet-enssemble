@@ -64,8 +64,46 @@ class EmployeeManager:
             return
         for employer in self.employees:
             employer.display_info()
+<<<<<<< HEAD
     #crée une méthode
     import json
+=======
+
+
+
+
+class Employee:
+    def __init__(self, id, nom, poste, salaire):
+        self.id = id
+        self.nom = nom
+        self.poste = poste
+        self.salaire = salaire
+
+
+class EmployeeManager:
+    def __init__(self):
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def save_to_json(self):
+        data = []
+
+        for emp in self.employees:
+            data.append({
+                "id": emp.id,
+                "nom": emp.nom,
+                "poste": emp.poste,
+                "salaire": emp.salaire
+            })
+
+        with open("employees.json", "w", encoding="utf-8") as fichier:
+            json.dump(data, fichier, indent=4, ensure_ascii=False)
+
+        print("Les employés ont été enregistrés dans employees.json.")
+        
+>>>>>>> 54cd320f58c55e41e7aa7ef0d0420dcda694233c
 
 class Employee:
     def __init__(self, emp_id, name, age, salary):
